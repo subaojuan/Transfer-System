@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 日志支持 -->
+<settings>
+<setting name="logImpl" value="LOG4J"/>
+</settings>
+<!-- 支持给FlowerMapper.java文件中的resultType起别名 -->
+<typeAliases>
+<!-- <typeAlias type="com.baojuan.pojo.Flower" alias="flow"/> -->
+<!-- 支持写包名，然后在FlowerMapper.java中的resultType直接写类名 -->
+<package name="com.baojuan.pojo"/>
+</typeAliases>
+	<environments default="su">
+	<!-- transactionManager的type属性可以有两个取值
+	JDBC:事务管理使用jdbc原生事务管理方式
+	MANAGED：把事务管理转交给其他容器，原生jdbc事务setAutoMapping(false)
+	dataSource的type可以有三个取值
+	POOLED：使用数据库连接池
+	UNPOOLED：不使用数据库连接池，和直接使用jdbc连接一样
+	JNDI：Java命名接口技术
+	数据库连接池：
+	在内存中开辟一块空间，存放多个数据库连接对象
+	JDBC Tomcat POOL，直接由tomcat产生数据库连接池
+	active状态：当前连接对象被应用程序使用中
+	Idle空闲状态：等待应用程序使用
+	使用数据库连接池的作用：
+	1.在高频率访问数据库时，使用数据库连接池可以降低服务器系统压力，提升程序运行效果
+	2.小型项目不适用数据库连接池
+	实现jdbc tomcat pool的步骤
+	1.在web项目的META-INF中存放context.xml
+	
+	 -->
+		<environment id="su">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost:3306/money" />
+				<property name="username" value="root" />
+				<property name="password" value="root" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+	<mapper resource="com/baojuan/mapper/AccountMapper.xml"/>
+	<mapper resource="com/baojuan/mapper/LogMapper.xml"/>
+	</mappers>
+</configuration>
